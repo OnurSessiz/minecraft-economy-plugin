@@ -1,0 +1,14 @@
+name: ilkplugin
+version: 1.0
+main: com.onursessiz.ilkplugin.IlkPlugin
+api-version: '1.21'
+
+commands:
+
+  coin:
+    description: Coin bilgini gösterir
+    usage: /coin [oyuncu]
+
+  pay:
+    description: Hedef oyuncuya coin gönderir
+    usage: /pay [oyuncu] [amount]
