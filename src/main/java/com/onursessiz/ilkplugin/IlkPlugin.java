@@ -46,6 +46,7 @@ public final class IlkPlugin extends JavaPlugin {
             }
         }.runTaskTimer(this, 0, 200);
         getCommand("pay").setExecutor(new PayCommand(this));
+        getCommand("coin").setTabCompleter(new CoinTabCompleter());
         getServer().getPluginManager().registerEvents(new CoinSystem(this), this);
         getLogger().info("Plugin aktif!");
         getCommand("coin").setExecutor(new CoinCommmand(this));

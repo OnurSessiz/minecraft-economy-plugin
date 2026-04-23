@@ -6,8 +6,8 @@ api-version: '1.21'
 commands:
 
   coin:
-    description: Coin bilgini gösterir
-    usage: /coin [oyuncu]
+    description: Coin sisteminin temel kodudur
+    usage: /coin <give/remove/set/get> [oyuncu] [amount]
 
   pay:
     description: Hedef oyuncuya coin gönderir

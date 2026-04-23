@@ -1,15 +1,37 @@
 package com.onursessiz.ilkplugin;
 
+
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
-import java.util.UUID;
+
+
 
 public class CoinCommmand implements CommandExecutor {
+
+    private boolean yetkiKontrol(CommandSender sender){
+        if (!sender.hasPermission("coin.admin")) {
+            sender.sendMessage("Yetkin yok.");
+            return false;
+        }
+
+        return true;
+    }
+
+    private OfflinePlayer getTarget(String name, CommandSender sender) {
+        OfflinePlayer target = Bukkit.getOfflinePlayer(name);
+
+        if (target.getName() == null) {
+            sender.sendMessage("Oyuncu bulunamadı!");
+            return null;
+        }
+
+        return target;
+    }
+
 
     private final IlkPlugin plugin;
 
@@ -18,48 +40,104 @@ public class CoinCommmand implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        Player targetPlayer = null;
-        if (args.length == 0){
-            if (sender instanceof Player){
-                targetPlayer = (Player) sender;
-                targetPlayer.sendMessage("Sahip olduğunuz coin : "+plugin.getCoins(targetPlayer.getUniqueId()));
-            }
-            else {
-                sender.sendMessage("Bu komudu kullanabilmeniz için önce bir oyuncu olmanız gerekiyor ...");
-            }
+        OfflinePlayer targetPlayer = null;
+        int amount;
+
+        if (args.length == 0) {
+            sender.sendMessage("Kullanım: /coin <give/remove/set/get>");
+            return true;
         }
-        else if (args.length == 1){
 
-            if (args[0].trim().toLowerCase().equals("top")){
-                UUID topUUID = plugin.getTopPlayer();
+        String sub = args[0].toLowerCase();
 
-                if (topUUID == null) {
-                    sender.sendMessage("Coini kayıtlı oyuncu yok");
+        switch (sub) {
+            case "give":
+                if (args.length!=3){
+                    sender.sendMessage("Hatalı komut / eksik komut girişi yapıldı !");
                     return true;
                 }
+                targetPlayer=getTarget(args[1],sender);
+                if (targetPlayer == null) return true;
 
-                OfflinePlayer topPlayer = Bukkit.getOfflinePlayer(topUUID);
+                if(yetkiKontrol(sender)) {
 
-                sender.sendMessage(
-                        "En zengin oyuncu: " + topPlayer.getName() +
-                                " | Coin: " + plugin.getCoins(topUUID)
-                );
-            }
-            else{
+                    try {
+                        amount = Integer.parseInt(args[2]);
+                    } catch (NumberFormatException e) {
+                        sender.sendMessage("Geçerli bir sayı gir.");
+                        return true;
+                    }
+                    if (amount <=0){
+                        sender.sendMessage("Eklenecek coin miktarı pozitif bir değer olmalıdır !!");
+                        return true;
+                    }
+                        plugin.addCoins(targetPlayer.getUniqueId(), amount);
+                        sender.sendMessage(targetPlayer.getName() + "'e " + amount + " coins gönderildi !!");
 
-                targetPlayer = Bukkit.getPlayer(args[0]);
-                if (targetPlayer != null){
-
-                    sender.sendMessage(targetPlayer.getName()+"'nın sahip olduğu coin : "+plugin.getCoins(targetPlayer.getUniqueId()));
                 }
-                else {
-                    sender.sendMessage("Bu isimde bir oyuncu bulunamadı.");
-                }
-            }
-            }
 
+                break;
+
+            case "remove":
+
+                if (args.length!=3){
+                    sender.sendMessage("Hatalı komut / eksik komut girişi yapıldı !");
+                    return true;
+                }
+                targetPlayer=getTarget(args[1],sender);
+                if (targetPlayer == null) return true;
+                if(yetkiKontrol(sender)) {
+                    try {
+                        amount = Integer.parseInt(args[2]);
+                    } catch (NumberFormatException e) {
+                        sender.sendMessage("Geçerli bir sayı gir.");
+                        return true;
+                    }
+                    if (amount <=0){
+                        sender.sendMessage("Azaltılacak coin miktarı pozitif bir değer olmalıdır !!");
+                        return true;
+                    }
+                    plugin.loseCoins(targetPlayer.getUniqueId(), amount );
+                    sender.sendMessage(targetPlayer.getName() + "'dan " + amount + " coins yok edildi !!");
+                }
+                break;
+
+            case "set":
+                if (args.length!=3){
+                    sender.sendMessage("Hatalı komut / eksik komut girişi yapıldı !");
+                    return true;
+                }
+                targetPlayer=getTarget(args[1],sender);
+                if (targetPlayer == null) return true;
+                if(yetkiKontrol(sender)){
+
+                        try {
+                            amount = Integer.parseInt(args[2]);
+                        } catch (NumberFormatException e) {
+                            sender.sendMessage("Geçerli bir sayı gir.");
+                            return true;
+                        }
+
+                    plugin.loseCoins(targetPlayer.getUniqueId(),plugin.getCoins(targetPlayer.getUniqueId()));
+                    plugin.addCoins(targetPlayer.getUniqueId(),amount);
+                    sender.sendMessage(targetPlayer.getName()+"'in coini "+amount+" yapıldı !");
+                }
+                break;
+
+            case "get":
+                if (args.length!=2){
+                    sender.sendMessage("Hatalı komut / eksik komut girişi yapıldı !");
+                    return true;
+                }
+                targetPlayer=getTarget(args[1],sender);
+                if (targetPlayer == null) return true;
+                sender.sendMessage(targetPlayer.getName()+"'in sahip olduğu coin miktarı : "+plugin.getCoins(targetPlayer.getUniqueId()));
+                break;
+            default:
+                sender.sendMessage("Geçersiz komut.");
+        }
 
         return true;
     }
