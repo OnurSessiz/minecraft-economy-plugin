@@ -17,7 +17,9 @@ A modular economy system plugin for Minecraft servers.
 * Optimized config-save system
 
 ## 🔧 Planned Features
+
 * Top player ranking system
+* Bounty system for eliminating the top players
 * Shop / Market system
 * Player trading
 * Database integration
