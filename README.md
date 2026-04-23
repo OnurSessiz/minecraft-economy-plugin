@@ -4,14 +4,20 @@
 
 A modular economy system plugin for Minecraft servers.
 
+## ✨ Just Released Features
+
+* Admin commands (give/remove/set/get for coins)
+* Tab completer for new commands
+
 ## ⚙️ Current Features
 
 * Player coin system
 * Kill-based coin rewards
-* Top player ranking system
+* Pay system to send coins to others
+* Optimized config-save system
 
 ## 🔧 Planned Features
-
+* Top player ranking system
 * Shop / Market system
 * Player trading
 * Database integration
