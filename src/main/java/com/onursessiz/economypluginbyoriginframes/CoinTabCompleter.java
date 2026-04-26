@@ -1,4 +1,4 @@
-package com.onursessiz.ilkplugin;
+package com.onursessiz.economypluginbyoriginframes;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;

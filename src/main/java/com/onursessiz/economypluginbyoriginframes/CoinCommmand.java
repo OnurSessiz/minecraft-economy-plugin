@@ -1,4 +1,4 @@
-package com.onursessiz.ilkplugin;
+package com.onursessiz.economypluginbyoriginframes;
 
 
 import org.bukkit.Bukkit;
@@ -33,9 +33,9 @@ public class CoinCommmand implements CommandExecutor {
     }
 
 
-    private final IlkPlugin plugin;
+    private final EconomyPluginByOriginFrames plugin;
 
-    public CoinCommmand(IlkPlugin plugin) {
+    public CoinCommmand(EconomyPluginByOriginFrames plugin) {
         this.plugin = plugin;
     }
 

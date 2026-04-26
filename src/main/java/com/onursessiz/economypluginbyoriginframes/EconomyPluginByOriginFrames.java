@@ -1,12 +1,14 @@
-package com.onursessiz.ilkplugin;
+package com.onursessiz.economypluginbyoriginframes;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
 import java.util.UUID;
 
-public final class IlkPlugin extends JavaPlugin {
+public final class EconomyPluginByOriginFrames extends JavaPlugin {
     public int getCoins(UUID uuid) {
         return coins.getOrDefault(uuid, 0);
     }
@@ -34,6 +36,8 @@ public final class IlkPlugin extends JavaPlugin {
         this.coinChangeActivity = coinChangeActivity;
     }
 
+    private ScoreboardManager scoreboardManager;
+
     @Override
     public void onEnable() {
         new BukkitRunnable() {
@@ -44,7 +48,16 @@ public final class IlkPlugin extends JavaPlugin {
                    coinChangeActivity=false;
                }
             }
-        }.runTaskTimer(this, 0, 200);
+        }.runTaskTimer(this, 0L, 200L);
+
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                for (Player player : Bukkit.getOnlinePlayers()) {
+                    scoreboardManager.setScoreboard(player);
+                }
+            }
+        }.runTaskTimer(this, 0L, 20L);
         getCommand("pay").setExecutor(new PayCommand(this));
         getCommand("coin").setTabCompleter(new CoinTabCompleter());
         getServer().getPluginManager().registerEvents(new CoinSystem(this), this);
@@ -58,12 +71,19 @@ public final class IlkPlugin extends JavaPlugin {
                 coins.put(uuid, coin);
             }
         }
+        this.scoreboardManager = new ScoreboardManager(this);
+        getServer().getPluginManager().registerEvents(new ScoreboardListener(scoreboardManager), this);
+
     }
 
     @Override
     public void onDisable() {
         getLogger().info("Ilk plugin kapandi!");
         saveConfig();
+    }
+
+    public ScoreboardManager getScoreboardManager() {
+        return scoreboardManager;
     }
 
     public UUID getTopPlayer() {

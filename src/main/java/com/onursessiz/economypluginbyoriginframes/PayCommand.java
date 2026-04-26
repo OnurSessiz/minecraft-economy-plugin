@@ -1,4 +1,4 @@
-package com.onursessiz.ilkplugin;
+package com.onursessiz.economypluginbyoriginframes;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -8,9 +8,9 @@ import org.bukkit.entity.Player;
 
 public class PayCommand implements CommandExecutor {
 
-    private final IlkPlugin plugin;
+    private final EconomyPluginByOriginFrames plugin;
 
-    public PayCommand(IlkPlugin plugin) {
+    public PayCommand(EconomyPluginByOriginFrames plugin) {
         this.plugin = plugin;
     }
 

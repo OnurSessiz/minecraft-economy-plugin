@@ -1,7 +1,9 @@
 name: ilkplugin
 version: 1.0
-main: com.onursessiz.ilkplugin.IlkPlugin
+main: com.onursessiz.economypluginbyoriginframes.EconomyPluginByOriginFrames
 api-version: '1.21'
+
+
 
 commands:
 

@@ -1,4 +1,4 @@
-package com.onursessiz.ilkplugin;
+package com.onursessiz.economypluginbyoriginframes;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -28,7 +28,8 @@ public class CoinSystem implements Listener {
           if (slayer != null) {
               plugin.addCoins(slayer.getUniqueId(), 10);
               slayer.sendMessage("10 coin kazandın!");
-
+              plugin.getConfig().set("coins." + slayer.getUniqueId(), plugin.getCoins(slayer.getUniqueId()));
+              plugin.saveConfig();
           }
 
       }
