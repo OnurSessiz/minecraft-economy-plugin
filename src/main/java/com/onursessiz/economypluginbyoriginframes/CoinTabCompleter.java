@@ -21,6 +21,7 @@ public class CoinTabCompleter implements TabCompleter {
             suggestions.add("remove");
             suggestions.add("set");
             suggestions.add("get");
+            suggestions.add("top");
         }
 
         if (args.length == 2) {
