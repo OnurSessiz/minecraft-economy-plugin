@@ -20,7 +20,6 @@ A modular economy system plugin for Minecraft servers.
   
 ## 🔧 Planned Features
 
-* Top player ranking system
 * Bounty system for eliminating the top players
 * Shop / Market system
 * Player trading
