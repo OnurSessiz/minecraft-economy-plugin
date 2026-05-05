@@ -6,7 +6,7 @@ A modular economy system plugin for Minecraft servers.
 
 ## ✨ Just Released Features
 
-* A well designed scorboard !!!
+* /coin top !! ( gives you the names of richest 10 players )
 
 ## ⚙️ Current Features
 
@@ -16,7 +16,8 @@ A modular economy system plugin for Minecraft servers.
 * Optimized config-save system
 * Admin commands (give/remove/set/get for coins)
 * Tab completer for admin commands
-
+* A well designed scorboard 
+  
 ## 🔧 Planned Features
 
 * Top player ranking system
