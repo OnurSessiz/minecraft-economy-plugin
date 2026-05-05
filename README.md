@@ -6,8 +6,7 @@ A modular economy system plugin for Minecraft servers.
 
 ## ✨ Just Released Features
 
-* Admin commands (give/remove/set/get for coins)
-* Tab completer for new commands
+* A well designed scorboard !!!
 
 ## ⚙️ Current Features
 
@@ -15,6 +14,8 @@ A modular economy system plugin for Minecraft servers.
 * Kill-based coin rewards
 * Pay system to send coins to others
 * Optimized config-save system
+* Admin commands (give/remove/set/get for coins)
+* Tab completer for admin commands
 
 ## 🔧 Planned Features
 
